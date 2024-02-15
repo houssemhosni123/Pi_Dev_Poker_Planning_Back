@@ -23,7 +23,7 @@ public class UserStory implements Serializable {
     @Enumerated(EnumType.STRING)
     StatutUserStory Statut_US;
     int Velocite_US;
-
+    private int hi;
     @ManyToOne(cascade = CascadeType.ALL)
     Projet projet;
     @ManyToOne
