@@ -28,9 +28,11 @@ public class Session implements Serializable {
     private String Description;
     private Date DateEtHeureDebut ;
     private Date DateEtHeureFin ;
-    private String type;
     @Enumerated(EnumType.STRING)
     private StatutDeSession statut;
+
+    @Enumerated(EnumType.STRING)
+    private TypeDeVote vote;
 
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "session")
