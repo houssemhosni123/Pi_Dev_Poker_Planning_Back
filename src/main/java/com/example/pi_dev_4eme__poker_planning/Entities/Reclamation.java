@@ -21,6 +21,7 @@ public class Reclamation implements Serializable {
     String titre_Reclamation;
     String contenu_Reclamation;
     Date dateSoumission;
+    //yasssin
     @ManyToOne
     @JoinColumn(name = "idUser",referencedColumnName = "idUser",
             insertable = false,updatable = false)
@@ -30,4 +31,5 @@ public class Reclamation implements Serializable {
     @JoinColumn(name = "idReunion" ,referencedColumnName = "idReunion",
             insertable = false,updatable = false)
     Reunion reunionReclamer;
+
 }
