@@ -18,7 +18,7 @@ public class TacheTechnique implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTacheTechnique;  // Identifiant unique de la tâche technique
+    private Long idTacheTechnique; 
 
     private String nomTacheTechnique;  // Nom ou description de la tâche technique
     private String descriptionTacheTechnique;  // Description détaillée de la tâche technique

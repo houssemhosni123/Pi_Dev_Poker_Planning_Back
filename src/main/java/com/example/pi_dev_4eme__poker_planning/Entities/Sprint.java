@@ -27,5 +27,5 @@ public class Sprint implements Serializable {
     @OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SprintBacklog> sprintBacklogs;
 
-    // Autres attributs et méthodes...
+    
 }
