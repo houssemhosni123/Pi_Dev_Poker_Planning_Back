@@ -1,6 +1,7 @@
 package com.example.pi_dev_4eme__poker_planning.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,18 +23,21 @@ public class Iteration implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idIteration;
 
-    private String resultat;
+    private ResultatIteration resultat;
 
     private Date date_Iteration;
     @OneToOne
+    @JsonIgnore
     private Chat chat;
 
 
     @OneToMany(mappedBy = "iteration",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Estimation> Estimations;
 
     //hethy fil entites Iteration
     @ManyToOne
+    @JsonIgnore
     Session session;
 
 }
