@@ -1,6 +1,7 @@
 package com.example.pi_dev_4eme__poker_planning.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,12 +42,17 @@ public class User implements Serializable
     private List<Tache> taches;
 
     @OneToMany (mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnore
     Set<Reunion> reunions;
 
     @ManyToMany (mappedBy = "users",cascade = CascadeType.ALL)
+    @JsonIgnore
+
     Set<Reunion>reunionsAssiter;
 
     @OneToMany(mappedBy = "userReclamer",cascade = CascadeType.ALL)
+    @JsonIgnore
+
     Set<Reclamation> reclamations;
 
     /*@ManyToMany (cascade = CascadeType.ALL)

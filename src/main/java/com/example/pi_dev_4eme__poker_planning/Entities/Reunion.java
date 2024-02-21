@@ -1,5 +1,6 @@
 package com.example.pi_dev_4eme__poker_planning.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +21,12 @@ public class Reunion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idReunion ;
     String titre_Reunion;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
 
     Date DateDebut_Reunion;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+
     Date DateFin_Reunion;
     String lieu_Reunion;
     String priorite_Reunion;
