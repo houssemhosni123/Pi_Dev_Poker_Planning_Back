@@ -8,5 +8,5 @@ public interface IiterationServices {
     Iteration AddIteration(Iteration iteration);
    Iteration UpdateIteration(Iteration iteration, long idIteration);
    List<Iteration> ShowIteration();
-   void DeleteIteration(Iteration iteration,long idIteration);
+   void DeleteIteration(long idIteration);
 }

@@ -22,8 +22,10 @@ IterationRepositories iiterationrepositories;
 
     @Override
     public Iteration UpdateIteration(Iteration iteration, long idIteration) {
-     iteration=iiterationrepositories.findIterationByIdIteration(idIteration);
-    return  iiterationrepositories.save(iteration);
+     Iteration existiteration=iiterationrepositories.findIterationByIdIteration(idIteration);
+        existiteration.setResultat(iteration.getResultat());
+        existiteration.setDate_Iteration(iteration.getDate_Iteration());
+     return  iiterationrepositories.save(existiteration);
     }
 
     @Override
@@ -32,8 +34,8 @@ IterationRepositories iiterationrepositories;
     }
 
     @Override
-    public void DeleteIteration(Iteration iteration, long idIteration) {
-        iteration= iiterationrepositories.findIterationByIdIteration(idIteration);
+    public void DeleteIteration( long idIteration) {
+        Iteration iteration= iiterationrepositories.findIterationByIdIteration(idIteration);
          iiterationrepositories.delete(iteration);
     }
 

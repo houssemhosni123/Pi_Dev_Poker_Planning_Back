@@ -33,9 +33,9 @@ public class IterationControllers {
         return iterationServices.UpdateIteration(iteration, idIteration);
     }
     @DeleteMapping("/DeleteIteration/{id}")
-     void DeleteIteration(@RequestBody Iteration iteration, @PathVariable("id") long idIteration)
+     void DeleteIteration(  @PathVariable("id") long idIteration)
     {
-         iterationServices.DeleteIteration(iteration, idIteration);
+         iterationServices.DeleteIteration( idIteration);
 
     }
 }
