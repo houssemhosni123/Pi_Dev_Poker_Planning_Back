@@ -20,7 +20,6 @@ public class SprintBacklog implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSprintBacklog;
-    private String userStory;
     private int effortEstimation;
     private String definitionOfDone;
     private int priorite;
@@ -29,9 +28,11 @@ public class SprintBacklog implements Serializable {
     private Date dateFin;
 
     @ManyToOne
-    @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
    @OneToMany(mappedBy = "sprintBacklog",cascade = CascadeType.ALL)
-    private List<UserStory> UserStorys;
+    private List<UserStory> userStories;
+
+
+
 }
