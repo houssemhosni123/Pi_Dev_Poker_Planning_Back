@@ -9,6 +9,8 @@ import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReunionService implements IReunionRepositories {
     @Autowired
@@ -37,10 +39,18 @@ public class ReunionService implements IReunionRepositories {
     }
 
     @Override
+    public List<Reunion> getAllReunions() {
+        return reunionRepositories.findAll(); // Suppose que vous utilisez JPA et que vous avez un repository appelé reunionRepository
+
+
+    }
+
+    @Override
     public Reunion getReunionById(Long id) {
         return reunionRepositories.findById(id).orElse(null);
 
     }
+
 
     @Override
     public Reunion updateReunion(Long id, Reunion updatedReunion) {

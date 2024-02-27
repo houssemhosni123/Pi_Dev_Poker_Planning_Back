@@ -1,6 +1,8 @@
 package com.example.pi_dev_4eme__poker_planning.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -21,19 +24,21 @@ public class Reunion implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idReunion ;
     String titre_Reunion;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    LocalDateTime DateDebut_Reunion;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    LocalDateTime DateFin_Reunion;
 
-    Date DateDebut_Reunion;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-
-    Date DateFin_Reunion;
     String lieu_Reunion;
     String priorite_Reunion;
     @ManyToOne
+    @JsonBackReference
+
+
     User user ;
-    @ManyToMany
-    Set<User> users ;
+   // @ManyToMany
+    //Set<User> users ;
     @OneToMany (mappedBy = "reunionReclamer",cascade = CascadeType.ALL)
     Set<Reclamation>reclamationSet;
 }
