@@ -6,10 +6,9 @@ import com.example.pi_dev_4eme__poker_planning.Services.EstimationService;
 import com.example.pi_dev_4eme__poker_planning.Services.IterationServices;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Estimation")
@@ -23,12 +22,18 @@ public class EstimationControllers {
     {
        return estimationService.AddNewEstimation(estimation);
     }
-    @PostMapping("/AddIterationWithEstimation")
+    @PostMapping("/AddEstimationWithIteration/{idIteration}")
     @Transactional
-    public void AddIterationWithEstimation( @RequestBody  Iteration iteration,  Estimation estimation)
+    public void AddEstimationWithIteration(@RequestBody  Estimation estimation, @PathVariable("idIteration") long idIteration )
     {
-      estimationService.AddIterationWithEstimation(iteration, estimation);
+      estimationService.AddEstimationAffectIteration(estimation, idIteration);
     }
+    @GetMapping("/GetEstimations/{id}")
+    public List<Estimation> ShowEstimationsForOneIterations(@PathVariable("id") long id)
+    {
+       return estimationService.ShowEstimationsForOneIterations(id);
+    }
+
 
 
 

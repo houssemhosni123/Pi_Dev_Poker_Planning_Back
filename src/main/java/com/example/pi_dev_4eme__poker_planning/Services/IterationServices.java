@@ -24,7 +24,8 @@ IterationRepositories iiterationrepositories;
     public Iteration UpdateIteration(Iteration iteration, long idIteration) {
      Iteration existiteration=iiterationrepositories.findIterationByIdIteration(idIteration);
         existiteration.setResultat(iteration.getResultat());
-        existiteration.setDate_Iteration(iteration.getDate_Iteration());
+        existiteration.setDate_IterationDebut(iteration.getDate_IterationDebut());
+        existiteration.setDate_IterationFin(iteration.getDate_IterationFin());
      return  iiterationrepositories.save(existiteration);
     }
 
@@ -37,6 +38,12 @@ IterationRepositories iiterationrepositories;
     public void DeleteIteration( long idIteration) {
         Iteration iteration= iiterationrepositories.findIterationByIdIteration(idIteration);
          iiterationrepositories.delete(iteration);
+    }
+
+    @Override
+    public Iteration getIterationById(long idIteration) {
+        Iteration iteration= iiterationrepositories.findIterationByIdIteration(idIteration);
+        return iteration;
     }
 
 }

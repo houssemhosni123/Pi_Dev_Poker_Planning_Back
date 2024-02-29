@@ -38,4 +38,8 @@ public class IterationControllers {
          iterationServices.DeleteIteration( idIteration);
 
     }
+    @GetMapping("/getIteration/{id}")
+    public Iteration getIterationById(@PathVariable long id) {
+        return iterationServices.getIterationById(id);
+    }
 }

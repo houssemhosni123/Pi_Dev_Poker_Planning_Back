@@ -30,14 +30,14 @@ public class Estimation implements Serializable {
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name="idIteration",referencedColumnName = "idIteration",
-            insertable = false,updatable = false)
+            insertable = true,updatable = true)
     private Iteration iteration;
 
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name="idUser",referencedColumnName = "idUser",
-            insertable = false,updatable = false)
+            insertable = true,updatable = true  )
 
     private User user;
 }

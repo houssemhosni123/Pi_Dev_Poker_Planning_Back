@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 
+import java.util.List;
+
 @Service
 public class EstimationService implements IEstimationServices{
     @Autowired
@@ -20,21 +22,28 @@ public class EstimationService implements IEstimationServices{
         return estimationRepositories.save(estimation);
     }
    @Override
-   @Transactional()
 
-   public void AddIterationWithEstimation(Iteration iteration, Estimation estimation) {
-       if (iteration.getIdIteration() == null) {
-           iterationRepository.save(iteration);
-       }
 
-       // Initialiser la liste si elle est null
+   public Estimation AddEstimationAffectIteration( Estimation estimation,long id) {
+      Iteration iteration = iterationRepository.findIterationByIdIteration(id);
 
-       // Ajouter l'estimation à la liste
 
-       estimation.setIteration(iteration); // Assurez-vous que l'estimation est associée à l'itération
+       estimation.setIteration(iteration);
 
-       // Enregistrez l'estimation après avoir associé à l'itération
-       estimationRepositories.save(estimation);
+       // Save the Estimation first to generate its ID
+       estimation = estimationRepositories.save(estimation);
 
+       // Add Estimation to Iteration and save Iteration
+       iteration.getEstimations().add(estimation);
+       iterationRepository.save(iteration);
+
+       return estimation;
+
+    }
+
+    @Override
+    public List<Estimation> ShowEstimationsForOneIterations(long id) {
+        List<Estimation> estimations = estimationRepositories.findEstimationsByIteration_IdIteration(id);
+    return estimations;
     }
 }

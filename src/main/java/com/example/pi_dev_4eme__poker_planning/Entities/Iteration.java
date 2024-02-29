@@ -26,7 +26,8 @@ public class Iteration implements Serializable {
     @Enumerated(EnumType.STRING)
     private ResultatIteration resultat;
 
-    private Date date_Iteration;
+    private Date date_IterationDebut;
+    private Date date_IterationFin;
     @OneToOne
     @JsonIgnore
     private Chat chat;

@@ -9,4 +9,5 @@ public interface IiterationServices {
    Iteration UpdateIteration(Iteration iteration, long idIteration);
    List<Iteration> ShowIteration();
    void DeleteIteration(long idIteration);
+     public Iteration getIterationById(long idIteration);
 }
