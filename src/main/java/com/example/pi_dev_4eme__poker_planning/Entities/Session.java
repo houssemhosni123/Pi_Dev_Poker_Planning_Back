@@ -45,8 +45,8 @@ public class Session implements Serializable {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "session")
-    private Set<UserStory> UserStory;
+   // @OneToMany(cascade = CascadeType.ALL,mappedBy = "session")
+   // private Set<UserStory> UserStory;
 
 
 }

@@ -1,10 +1,11 @@
 package com.example.pi_dev_4eme__poker_planning.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,23 +18,24 @@ import java.util.List;
 public class UserStory implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int IdUserStory;
+    Long IdUserStory;
     String Titre_US;
     String Description_US;
     @Enumerated(EnumType.STRING)
     StatutUserStory Statut_US;
-    int Velocite_US;
-    private int hi;
-    @ManyToOne(cascade = CascadeType.ALL)
-    Projet projet;
-    @ManyToOne
-    SprintBacklog sprintBacklog;
+    Long Velocite_US;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    List<TacheTechnique> tacheTechniques;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JsonIgnore
+    Projet projet;
+    //@ManyToOne
+   // SprintBacklog sprintBacklog;
+
+    //@OneToMany(cascade = CascadeType.ALL)
+    //List<TacheTechnique> tacheTechniques;
 
    //hethy fil entites UserStory
-    @ManyToOne
-    Session session;
+    //@ManyToOne
+    //Session session;
 
 }

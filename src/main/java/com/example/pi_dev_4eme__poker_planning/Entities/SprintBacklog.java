@@ -32,6 +32,6 @@ public class SprintBacklog implements Serializable {
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
-   @OneToMany(mappedBy = "sprintBacklog",cascade = CascadeType.ALL)
-    private List<UserStory> UserStorys;
+   //@OneToMany(mappedBy = "sprintBacklog",cascade = CascadeType.ALL)
+    //private List<UserStory> UserStorys;
 }
