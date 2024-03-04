@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface IEstimationServices {
     Estimation AddNewEstimation(Estimation estimation);
-    public Estimation AddEstimationAffectIteration( Estimation estimation,long id);
+    public Estimation AddEstimationAffectIteration( Estimation estimation);
     public List<Estimation> ShowEstimationsForOneIterations(long id);
 }

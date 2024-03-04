@@ -24,9 +24,9 @@ public class EstimationService implements IEstimationServices{
    @Override
 
 
-   public Estimation AddEstimationAffectIteration( Estimation estimation,long id) {
-      Iteration iteration = iterationRepository.findIterationByIdIteration(id);
-
+   public Estimation AddEstimationAffectIteration( Estimation estimation ) {
+     //  Iteration iteration = iterationRepository.findIterationByIdIteration(id);
+        Iteration iteration = iterationRepository.findLatestIteration();
 
        estimation.setIteration(iteration);
 

@@ -22,11 +22,11 @@ public class EstimationControllers {
     {
        return estimationService.AddNewEstimation(estimation);
     }
-    @PostMapping("/AddEstimationWithIteration/{idIteration}")
+    @PostMapping("/AddEstimationWithIteration/")
     @Transactional
-    public void AddEstimationWithIteration(@RequestBody  Estimation estimation, @PathVariable("idIteration") long idIteration )
+    public void AddEstimationWithIteration(@RequestBody  Estimation estimation )
     {
-      estimationService.AddEstimationAffectIteration(estimation, idIteration);
+      estimationService.AddEstimationAffectIteration(estimation);
     }
     @GetMapping("/GetEstimations/{id}")
     public List<Estimation> ShowEstimationsForOneIterations(@PathVariable("id") long id)
