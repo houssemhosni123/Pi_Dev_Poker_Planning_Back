@@ -32,7 +32,7 @@ public class Iteration implements Serializable {
     @OneToMany(mappedBy = "iteration",cascade = CascadeType.ALL)
     private List<Estimation> Estimations;
 
-    //hethy fil entites Iteration
+
     @ManyToOne
     Session session;
 

@@ -54,5 +54,10 @@ public class User implements Serializable
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Estimation> estimations;
+
+    /*@ManyToMany(mappedBy = "users")
+    private List<Session> sessions;
+    */
 }
+
 

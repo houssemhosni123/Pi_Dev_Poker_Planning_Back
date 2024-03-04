@@ -4,5 +4,5 @@ public enum StatutDeSession {
     EnCours,
     Annuler,
     Terminer,
-    FIRAAS
+
 }
