@@ -6,6 +6,7 @@ import com.example.pi_dev_4eme__poker_planning.Entities.UserStory;
 import com.example.pi_dev_4eme__poker_planning.Repositories.SprintBacklogRepository;
 import com.example.pi_dev_4eme__poker_planning.Repositories.SprintRepository;
 import com.example.pi_dev_4eme__poker_planning.Repositories.UserStoryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
@@ -78,6 +79,7 @@ public class SprintBacklogServiceImpl implements ISprintBacklogServices {
         }
     }
 
+    @Transactional
     @Override
     public void unassignSprintFromSprintBacklog(Long sprintBacklogId) {
         Optional<SprintBacklog> optionalSprintBacklog = sprintBacklogRepository.findById(sprintBacklogId);

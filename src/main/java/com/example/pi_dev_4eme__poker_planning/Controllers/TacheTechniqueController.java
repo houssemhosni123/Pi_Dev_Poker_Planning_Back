@@ -8,45 +8,53 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
-    @RequestMapping("/api/tacheTechniques")
-    public class TacheTechniqueController {
+@RequestMapping("/api/tacheTechniques")
+public class TacheTechniqueController {
 
-        @Autowired
+    @Autowired
     TacheTechniqueServiceImpl tacheTechniqueService;
 
-        @PostMapping("/userStory/{userStoryId}")
-        public ResponseEntity<TacheTechnique> createTacheTechnique(@PathVariable Long userStoryId,
-                                                                   @RequestBody TacheTechnique tacheTechnique) {
-            TacheTechnique createdTacheTechnique = tacheTechniqueService.createTacheTechnique(userStoryId, tacheTechnique);
-            return new ResponseEntity<>(createdTacheTechnique, HttpStatus.CREATED);
-        }
+    @PostMapping("/create")
+    public ResponseEntity<TacheTechnique> createTacheTechnique(@RequestBody TacheTechnique tacheTechnique) {
+        TacheTechnique createdTacheTechnique = tacheTechniqueService.createTacheTechnique(tacheTechnique);
+        return new ResponseEntity<>(createdTacheTechnique, HttpStatus.CREATED);
+    }
 
-        @PutMapping("/{id}")
-        public ResponseEntity<TacheTechnique> updateTacheTechnique(@PathVariable Long id,
-                                                                   @RequestBody TacheTechnique tacheTechnique) {
-            TacheTechnique updatedTacheTechnique = tacheTechniqueService.updateTacheTechnique(id, tacheTechnique);
-            return new ResponseEntity<>(updatedTacheTechnique, HttpStatus.OK);
-        }
+    @PostMapping("/assignToUserStory/{userStoryId}")
+    public ResponseEntity<TacheTechnique> assignTacheTechniqueToUserStory(@PathVariable Long userStoryId,
+                                                                          @RequestBody TacheTechnique tacheTechnique) {
+        TacheTechnique assignedTacheTechnique = tacheTechniqueService.affecterTacheTechnique(userStoryId, tacheTechnique);
+        return new ResponseEntity<>(assignedTacheTechnique, HttpStatus.CREATED);
+    }
 
-        @GetMapping
-        public ResponseEntity<List<TacheTechnique>> getAllTacheTechniques() {
-            List<TacheTechnique> tacheTechniques = tacheTechniqueService.getAllTacheTechniques();
-            return new ResponseEntity<>(tacheTechniques, HttpStatus.OK);
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<TacheTechnique> updateTacheTechnique(@PathVariable Long id,
+                                                               @RequestBody TacheTechnique tacheTechnique) {
+        TacheTechnique updatedTacheTechnique = tacheTechniqueService.updateTacheTechnique(id, tacheTechnique);
+        return new ResponseEntity<>(updatedTacheTechnique, HttpStatus.OK);
+    }
 
-        @GetMapping("/{id}")
-        public ResponseEntity<TacheTechnique> getTacheTechniqueById(@PathVariable Long id) {
-            TacheTechnique tacheTechnique = tacheTechniqueService.getTacheTechniqueById(id);
-            return new ResponseEntity<>(tacheTechnique, HttpStatus.OK);
-        }
+    @GetMapping
+    public ResponseEntity<List<TacheTechnique>> getAllTacheTechniques() {
+        List<TacheTechnique> tacheTechniques = tacheTechniqueService.getAllTacheTechniques();
+        return new ResponseEntity<>(tacheTechniques, HttpStatus.OK);
+    }
 
-        @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteTacheTechnique(@PathVariable Long id) {
-            tacheTechniqueService.deleteTacheTechnique(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    @GetMapping("/{id}")
+    public ResponseEntity<TacheTechnique> getTacheTechniqueById(@PathVariable Long id) {
+        TacheTechnique tacheTechnique = tacheTechniqueService.getTacheTechniqueById(id);
+        return new ResponseEntity<>(tacheTechnique, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTacheTechnique(@PathVariable Long id) {
+        tacheTechniqueService.deleteTacheTechnique(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @PostMapping("/{tacheTechniqueId}/unassign")
     public ResponseEntity<String> unassignTacheTechnique(@PathVariable Long tacheTechniqueId) {
         try {
@@ -56,6 +64,4 @@ import java.util.List;
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
 }
-

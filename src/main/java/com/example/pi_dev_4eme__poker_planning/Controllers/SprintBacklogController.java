@@ -2,16 +2,15 @@ package com.example.pi_dev_4eme__poker_planning.Controllers;
 
 
 import com.example.pi_dev_4eme__poker_planning.Entities.SprintBacklog;
-import com.example.pi_dev_4eme__poker_planning.Services.SprintBacklogNotFoundException;
-import com.example.pi_dev_4eme__poker_planning.Services.SprintBacklogServiceImpl;
-import com.example.pi_dev_4eme__poker_planning.Services.TacheTechniqueServiceImpl;
-import com.example.pi_dev_4eme__poker_planning.Services.UserStoryNotFoundException;
+import com.example.pi_dev_4eme__poker_planning.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
     @RequestMapping("/api/sprintBacklogs")
@@ -53,15 +52,16 @@ import java.util.List;
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     @PutMapping("/{sprintBacklogId}/assign-sprint/{sprintId}")
-
-    public ResponseEntity<String> assignSprintToSprintBacklog(
+    public ResponseEntity<Object> assignSprintToSprintBacklog(
             @PathVariable Long sprintBacklogId,
-            @PathVariable Long sprintId) {
+            @PathVariable Long sprintId
+    ) {
         try {
             sprintBacklogService.assignSprintToSprintBacklog(sprintBacklogId, sprintId);
-            return ResponseEntity.ok("SprintBacklog affecté avec succès au Sprint");
-        } catch (SprintBacklogNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            String successMessage = "SprintBacklog affecté avec succès au Sprint.";
+            return ResponseEntity.ok().body(Map.of("message", successMessage));
+        } catch (SprintBacklogNotFoundException | SprintNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
     }
     @PostMapping("/{sprintBacklogId}/assign-userstories")
@@ -86,13 +86,14 @@ import java.util.List;
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-    @PostMapping("/{sprintBacklogId}/unassign-sprint")
-    public ResponseEntity<String> unassignSprintFromSprintBacklog(@PathVariable Long sprintBacklogId) {
+    @PutMapping("/{sprintBacklogId}/unassign-sprint")
+    public ResponseEntity<Object> unassignSprintFromSprintBacklog(@PathVariable Long sprintBacklogId) {
         try {
             sprintBacklogService.unassignSprintFromSprintBacklog(sprintBacklogId);
-            return ResponseEntity.ok("Sprint désaffecté avec succès du SprintBacklog.");
+            String successMessage = "Sprint désaffecté avec succès du SprintBacklog.";
+            return ResponseEntity.ok().body(Map.of("message", successMessage));
         } catch (SprintBacklogNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
     }
     @GetMapping("/sprintBacklog/{sprintId}")

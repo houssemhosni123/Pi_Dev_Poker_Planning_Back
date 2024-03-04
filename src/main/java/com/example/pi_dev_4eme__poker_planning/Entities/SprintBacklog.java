@@ -1,5 +1,6 @@
 package com.example.pi_dev_4eme__poker_planning.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,10 +27,10 @@ public class SprintBacklog implements Serializable {
     private boolean estTermine;
     private Date dateDebut;
     private Date dateFin;
-
+@JsonIgnore
     @ManyToOne
     private Sprint sprint;
-
+  @JsonIgnore
    @OneToMany(mappedBy = "sprintBacklog",cascade = CascadeType.ALL)
     private List<UserStory> userStories;
 

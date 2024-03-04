@@ -15,16 +15,23 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TacheTechniqueServiceImpl implements  ITacheTechniqueServices{
+public class TacheTechniqueServiceImpl implements ITacheTechniqueServices {
 
     @Autowired
     private TacheTechniqueRepository tacheTechniqueRepository;
 
-
     @Autowired
     private UserStoryRepository userStoryRepository;
+
     @Override
-    public TacheTechnique createTacheTechnique(Long userStoryId, TacheTechnique tacheTechnique) {
+    public TacheTechnique createTacheTechnique(TacheTechnique tacheTechnique) {
+        // Logique pour créer une tâche technique indépendamment de son affectation à une user story
+        tacheTechnique.setDateCreation(new Date());
+        return tacheTechniqueRepository.save(tacheTechnique);
+    }
+
+    @Override
+    public TacheTechnique affecterTacheTechnique(Long userStoryId, TacheTechnique tacheTechnique) {
         UserStory userStory = userStoryRepository.findById(userStoryId)
                 .orElseThrow(() -> new NotFoundException("UserStory not found with id: " + userStoryId));
 
@@ -63,6 +70,7 @@ public class TacheTechniqueServiceImpl implements  ITacheTechniqueServices{
             throw new NotFoundException("TacheTechnique not found with id: " + id);
         }
     }
+
     @Override
     public void unassignTacheTechnique(Long tacheTechniqueId) {
         Optional<TacheTechnique> optionalTacheTechnique = tacheTechniqueRepository.findById(tacheTechniqueId);
@@ -75,5 +83,4 @@ public class TacheTechniqueServiceImpl implements  ITacheTechniqueServices{
             throw new NotFoundException("TacheTechnique not found with id: " + tacheTechniqueId);
         }
     }
-
 }
