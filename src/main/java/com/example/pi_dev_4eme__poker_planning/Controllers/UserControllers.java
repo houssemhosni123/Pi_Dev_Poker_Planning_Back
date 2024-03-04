@@ -3,11 +3,7 @@ package com.example.pi_dev_4eme__poker_planning.Controllers;
 import com.example.pi_dev_4eme__poker_planning.Entities.Reclamation;
 import com.example.pi_dev_4eme__poker_planning.Entities.Reunion;
 import com.example.pi_dev_4eme__poker_planning.Entities.User;
-import com.example.pi_dev_4eme__poker_planning.Services.IReclamationRepositories;
-import com.example.pi_dev_4eme__poker_planning.Services.IReunionRepositories;
-import com.example.pi_dev_4eme__poker_planning.Services.IUserRepositories;
-import com.example.pi_dev_4eme__poker_planning.Services.ReunionService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.pi_dev_4eme__poker_planning.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +26,12 @@ public class UserControllers {
     IReclamationRepositories reclamationRepositories ;
   @Autowired
     ReunionService reunionService ;
+  @Autowired
+    ReclamationService reclamationService ;
+    @Autowired
+     ReclamationStatsService reclamationStatsService;
+    @Autowired
+    UserServices userServices;
     private static final Logger logger = LoggerFactory.getLogger(UserControllers.class);
 
     @PostMapping("/ajouteruser")
@@ -45,12 +47,14 @@ public class UserControllers {
     public Reunion addReunion (@RequestBody Reunion reunion){
         return iReunionRepostories.addReunion(reunion);
     }
-    @PutMapping("/ajouterReclamation/{idU}/{idR}")
-    public void  addReclamtion(@RequestBody Reclamation reclamation,@PathVariable("idU") Long idUser,@PathVariable("idR") Long idReunion) {
+//    @PutMapping("/ajouterReclamation/{idU}/{idR}")
+  //  public void  addReclamtion(@RequestBody Reclamation reclamation,@PathVariable("idU") Long idUser,@PathVariable("idR") Long idReunion) {
 
-   reclamationRepositories.addReclamtion(reclamation,idUser,idReunion);
-    }
-    @DeleteMapping("delete/{id}")
+   //reclamationRepositories.addReclamtion(reclamation,idUser,idReunion);
+    //}
+
+
+        @DeleteMapping("delete/{id}")
     public void deleteReunion(@PathVariable Long id) {
       iReunionRepostories.deleteReunion(id);
     }
@@ -72,10 +76,54 @@ public class UserControllers {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
-    @DeleteMapping("delreclamation/{id}")
+        @DeleteMapping("delreclamation/{id}")
     public  void deleteReclamation(@PathVariable Long id){
         reclamationRepositories.deleteReclamation(id);
     }
 
+    @PostMapping("/add/{titre_Reunion}")
+    public ResponseEntity<?> addReclamtion(@RequestBody Reclamation reclamation, @PathVariable("titre_Reunion") String titre_Reunion) {
+        try {
+            Reclamation addedReclamation = reclamationService.addReclamtion(reclamation, titre_Reunion);
+            return ResponseEntity.ok(addedReclamation);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
-}
+    @GetMapping("/het")
+    public List<String> getAllTitreReunion(){
+        return reunionService.getAllTitreReunion();
+    }
+    @GetMapping("affichage")
+    public List<Reclamation> getAllReclamation() {
+
+return reclamationService.getAllReclamation();
+
+
+    }
+    @GetMapping("/countByReunion")
+    public List<Object[]> getReclamationCountByReunion() {
+        return reclamationStatsService.getReclamationCountByReunion();
+    }
+    @PostMapping  ("/users/reunion")
+    public ResponseEntity<String> addUserToReunionByUserIdAndUserNames(@RequestBody Reunion reunion,
+                                                                       @RequestParam List<String> userNames) {
+        try {
+            reunionService.addUserToReunionByUserIdAndUserNames( reunion, userNames);
+            return ResponseEntity.ok("La réunion a été ajoutée et les utilisateurs ont été invités avec succès.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+    @GetMapping("/getusers")
+    public List<User> getAllUser() {
+        return userServices.getAllUser();
+
+    }
+
+
+
+
+
+    }

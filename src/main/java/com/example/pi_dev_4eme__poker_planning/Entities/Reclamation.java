@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,7 +22,7 @@ public class Reclamation implements Serializable {
     Long idReclamation;
     String titre_Reclamation;
     String contenu_Reclamation;
-    LocalDate dateSoumission;
+    LocalDateTime dateSoumission;
     //yasssin
     @ManyToOne
     @JoinColumn(name = "idUser",referencedColumnName = "idUser",

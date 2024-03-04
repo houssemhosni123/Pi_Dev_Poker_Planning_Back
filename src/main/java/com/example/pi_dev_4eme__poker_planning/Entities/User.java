@@ -47,10 +47,10 @@ public class User implements Serializable
 
     Set<Reunion> reunions;
 
-  //  @ManyToMany (mappedBy = "users",cascade = CascadeType.ALL)
-    //@JsonIgnore
+    @ManyToMany (mappedBy = "users",cascade = CascadeType.ALL)
+    @JsonIgnore
 
-  //  Set<Reunion>reunionsAssiter;
+   Set<Reunion>reunionsAssiter;
 
     @OneToMany(mappedBy = "userReclamer",cascade = CascadeType.ALL)
     @JsonIgnore

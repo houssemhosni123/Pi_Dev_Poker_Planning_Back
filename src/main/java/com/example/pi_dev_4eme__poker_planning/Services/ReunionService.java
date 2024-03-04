@@ -9,25 +9,31 @@ import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class ReunionService implements IReunionRepositories {
     @Autowired
-    UserRepositories userRepositories ;
+    UserRepositories userRepositories;
     @Autowired
-    ReunionRepositories reunionRepositories ;
+    ReunionRepositories reunionRepositories;
     @Autowired
-    ReclamationRepositories reclamationRepositories ;
+    ReclamationRepositories reclamationRepositories;
     //@Override
     //public Reunion addReunion(Reunion reunion, Long idUser) {
-      //  User user = userRepositories.findById(idUser).orElse(null);
-        //reunion.setUser(user);
-        //return  reunionRepositories.save(reunion);
+    //  User user = userRepositories.findById(idUser).orElse(null);
+    //reunion.setUser(user);
+    //return  reunionRepositories.save(reunion);
     //}
 
     @Override
     public Reunion addReunion(Reunion reunion) {
+        reunion.setDatedepot(LocalDateTime.now());
+
+
         return reunionRepositories.save(reunion);
     }
 
@@ -40,7 +46,7 @@ public class ReunionService implements IReunionRepositories {
 
     @Override
     public List<Reunion> getAllReunions() {
-        return reunionRepositories.findAll(); // Suppose que vous utilisez JPA et que vous avez un repository appelé reunionRepository
+        return reunionRepositories.findAll();
 
 
     }
@@ -55,25 +61,58 @@ public class ReunionService implements IReunionRepositories {
     @Override
     public Reunion updateReunion(Long id, Reunion updatedReunion) {
 
-            Reunion existingReunion = reunionRepositories.findById(id).orElse(null);
+        Reunion existingReunion = reunionRepositories.findById(id).orElse(null);
 
-            if (existingReunion != null) {
-                existingReunion.setTitre_Reunion(updatedReunion.getTitre_Reunion());
-                existingReunion.setDateDebut_Reunion(updatedReunion.getDateDebut_Reunion());
-                existingReunion.setDateFin_Reunion(updatedReunion.getDateFin_Reunion());
-                existingReunion.setLieu_Reunion(updatedReunion.getLieu_Reunion());
-                existingReunion.setPriorite_Reunion(updatedReunion.getPriorite_Reunion());
-                // Autres attributs à mettre à jour si nécessaire
+        if (existingReunion != null) {
+            existingReunion.setTitre_Reunion(updatedReunion.getTitre_Reunion());
+            existingReunion.setDateDebut_Reunion(updatedReunion.getDateDebut_Reunion());
+            existingReunion.setDateFin_Reunion(updatedReunion.getDateFin_Reunion());
+            existingReunion.setLieu_Reunion(updatedReunion.getLieu_Reunion());
+            existingReunion.setPriorite_Reunion(updatedReunion.getPriorite_Reunion());
+            // Autres attributs à mettre à jour si nécessaire
 
-                return reunionRepositories.save(existingReunion);
-            } else {
-                return null; // Gérer le cas où la réunion n'existe pas
+            return reunionRepositories.save(existingReunion);
+        } else {
+            return null; // Gérer le cas où la réunion n'existe pas
+        }
+    }
+
+    @Override
+    public List<String> getAllTitreReunion() {
+        return reunionRepositories.findAllTitres();
+    }
+
+    @Override
+    public void addUserToReunionByUserIdAndUserNames( Reunion reunion, List<String> userNames) {
+
+        // Ajout de l'utilisateur à la réunion
+
+
+        // Recherche des autres utilisateurs par leur nom et ajout à la réunion
+        for (String userName : userNames) {
+            User invitedUser = userRepositories.findUsersByNomUser(userName);
+            if (invitedUser != null) {
+                reunion.getUsers().add(invitedUser);
             }
         }
 
-        // Autres méthodes CRUD
+        // Sauvegarde de la réunion mise à jour
+        reunionRepositories.save(reunion);
+    }
+    }
 
 
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
