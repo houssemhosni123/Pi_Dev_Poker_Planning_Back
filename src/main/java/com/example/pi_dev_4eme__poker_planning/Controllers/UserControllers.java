@@ -121,9 +121,23 @@ return reclamationService.getAllReclamation();
         return userServices.getAllUser();
 
     }
+<<<<<<< HEAD
+    @GetMapping("/getNomUser")
+    public List<String> getAllTitreUser(){
+        return userRepositories.getAllTitreUser();
+    }
+
+
+
+
+
+
+}
+=======
 
 
 
 
 
     }
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2

@@ -20,4 +20,12 @@ public class UserServices implements IUserRepositories {
     public List<User> getAllUser() {
         return userRepositories.findAll();
     }
+<<<<<<< HEAD
+
+    @Override
+    public List<String> getAllTitreUser() {
+        return userRepositories.findAllNOM();
+    }
+=======
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
 }

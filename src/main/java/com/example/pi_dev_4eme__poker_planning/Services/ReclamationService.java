@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+<<<<<<< HEAD
+import java.util.*;
+=======
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
 
 @Service
 public class ReclamationService  implements IReclamationRepositories{
@@ -31,6 +35,20 @@ public class ReclamationService  implements IReclamationRepositories{
                 //reclamationRepositories.save(reclamation);
         //}
 
+<<<<<<< HEAD
+    private Set<String> badWords = new HashSet<>(Arrays.asList("badword1", "badword2", "badword3"));
+    private boolean containsBadWords(String contenu) {
+        String[] mots = contenu.split("\\s+"); // Diviser le contenu en mots
+        for (String mot : mots) {
+            if (badWords.contains(mot.toLowerCase())) {
+                return true; // Retourne true si un mot inapproprié est trouvé
+            }
+        }
+        return false; // Aucun mot inapproprié trouvé
+    }
+
+=======
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
     @Override
     public void deleteReclamation(Long id) {
         reclamationRepositories.deleteById(id);
@@ -58,6 +76,16 @@ public class ReclamationService  implements IReclamationRepositories{
                 // Assigner la date de soumission actuelle à la réclamation
                 reclamation.setDateSoumission(now);
 
+<<<<<<< HEAD
+                // Vérifier si la réclamation contient des mots inappropriés
+                if (containsBadWords(reclamation.getContenu_Reclamation())) {
+                    System.out.println("La réclamation contient des mots inappropriés et ne peut pas être ajoutée.");
+                    // Vous pouvez ajouter d'autres logiques ici, comme l'enregistrement dans des journaux, l'envoi d'e-mails, etc.
+                    return null; // Ou retourner une réclamation vide
+                }
+
+=======
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
                 // Enregistrer la réclamation
                 return reclamationRepositories.save(reclamation);
             } else {

@@ -6,6 +6,10 @@ import com.example.pi_dev_4eme__poker_planning.Entities.User;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReclamationRepositories;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReunionRepositories;
 import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepositories;
+<<<<<<< HEAD
+
+=======
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,6 +90,11 @@ public class ReunionService implements IReunionRepositories {
     public void addUserToReunionByUserIdAndUserNames( Reunion reunion, List<String> userNames) {
 
         // Ajout de l'utilisateur à la réunion
+<<<<<<< HEAD
+        LocalDateTime datedepot = LocalDateTime.now();
+        reunion.setDatedepot(datedepot);
+=======
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
 
 
         // Recherche des autres utilisateurs par leur nom et ajout à la réunion
@@ -98,9 +107,13 @@ public class ReunionService implements IReunionRepositories {
 
         // Sauvegarde de la réunion mise à jour
         reunionRepositories.save(reunion);
+<<<<<<< HEAD
+    }}
+=======
     }
     }
 
+>>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
 
 
 
