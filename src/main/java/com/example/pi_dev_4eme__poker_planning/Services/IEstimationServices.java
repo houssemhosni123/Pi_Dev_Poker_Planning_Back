@@ -9,4 +9,5 @@ public interface IEstimationServices {
     Estimation AddNewEstimation(Estimation estimation);
     public Estimation AddEstimationAffectIteration( Estimation estimation);
     public List<Estimation> ShowEstimationsForOneIterations(long id);
+    public List<Estimation> ShowEstimationsForLastIteration();
 }

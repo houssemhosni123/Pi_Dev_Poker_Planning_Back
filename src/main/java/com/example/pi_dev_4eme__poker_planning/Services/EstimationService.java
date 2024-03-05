@@ -46,4 +46,13 @@ public class EstimationService implements IEstimationServices{
         List<Estimation> estimations = estimationRepositories.findEstimationsByIteration_IdIteration(id);
     return estimations;
     }
+
+    @Override
+    public List<Estimation> ShowEstimationsForLastIteration() {
+        Iteration iteration = iterationRepository.findLatestIteration();
+        List<Estimation> estimations = estimationRepositories.findEstimationsByIteration(iteration);
+        return estimations;
+    }
+
+
 }

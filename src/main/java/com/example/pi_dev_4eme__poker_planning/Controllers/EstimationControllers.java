@@ -33,7 +33,11 @@ public class EstimationControllers {
     {
        return estimationService.ShowEstimationsForOneIterations(id);
     }
-
+    @GetMapping ("/GetEstimationsLastIteration/")
+     public List<Estimation> ShowEstimationsForLastEstimation()
+     {
+         return estimationService.ShowEstimationsForLastIteration();
+     }
 
 
 

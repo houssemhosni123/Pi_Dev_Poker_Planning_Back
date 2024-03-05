@@ -10,5 +10,5 @@ import java.util.List;
 public interface EstimationRepositories extends JpaRepository<Estimation,Long> {
 
     List<Estimation> findEstimationsByIteration_IdIteration(long idIteration);
-
+    List<Estimation> findEstimationsByIteration(Iteration iteration);
 }
