@@ -2,6 +2,7 @@ package com.example.pi_dev_4eme__poker_planning.Controllers;
 
 import com.example.pi_dev_4eme__poker_planning.Entities.Estimation;
 import com.example.pi_dev_4eme__poker_planning.Entities.Iteration;
+import com.example.pi_dev_4eme__poker_planning.Entities.User;
 import com.example.pi_dev_4eme__poker_planning.Services.EstimationService;
 import com.example.pi_dev_4eme__poker_planning.Services.IterationServices;
 import jakarta.transaction.Transactional;
@@ -38,7 +39,11 @@ public class EstimationControllers {
      {
          return estimationService.ShowEstimationsForLastIteration();
      }
-
+    @PostMapping("/AffectUserToVote/{id}")
+    public Estimation AddEstimationAffectIterationwithUserId(@RequestBody Estimation estimation,@PathVariable("id") long idUser)
+    {
+      return  estimationService.AddEstimationAffectIterationwithUserId(estimation,idUser);
+    }
 
 
 }

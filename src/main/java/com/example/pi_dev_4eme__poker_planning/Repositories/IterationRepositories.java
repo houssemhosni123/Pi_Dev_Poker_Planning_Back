@@ -10,7 +10,8 @@ import java.util.List;
 public interface IterationRepositories extends JpaRepository<Iteration,Long> {
    Iteration findIterationByIdIteration(long Iteration);
    @Query("SELECT i FROM Iteration i ORDER BY i.idIteration DESC LIMIT 1")
-   Iteration findLatestIteration();
+   Iteration findLatestIteration(); 
    @Query("SELECT i FROM Iteration i ORDER BY i.date_IterationDebut ")
    List<Iteration> findIterationODate_IterationDebut();
+
 }

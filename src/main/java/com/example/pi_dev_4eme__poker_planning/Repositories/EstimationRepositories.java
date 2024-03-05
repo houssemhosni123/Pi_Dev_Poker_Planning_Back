@@ -11,4 +11,6 @@ public interface EstimationRepositories extends JpaRepository<Estimation,Long> {
 
     List<Estimation> findEstimationsByIteration_IdIteration(long idIteration);
     List<Estimation> findEstimationsByIteration(Iteration iteration);
+    @Query("SELECT e FROM Estimation e ORDER BY e.id_Estimation DESC LIMIT 1")
+    Estimation findLastEstimation();
 }

@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -23,7 +24,7 @@ public class Estimation implements Serializable {
     private Long id_Estimation;
 
     private int valeur;
-
+    private Date dateVote;
 
 
 
@@ -34,7 +35,7 @@ public class Estimation implements Serializable {
     private Iteration iteration;
 
 
-    @ManyToOne
+    @OneToOne
     @JsonIgnore
     @JoinColumn(name="idUser",referencedColumnName = "idUser",
             insertable = true,updatable = true  )
