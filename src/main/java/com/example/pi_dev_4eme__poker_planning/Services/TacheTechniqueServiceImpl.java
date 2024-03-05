@@ -83,4 +83,7 @@ public class TacheTechniqueServiceImpl implements ITacheTechniqueServices {
             throw new NotFoundException("TacheTechnique not found with id: " + tacheTechniqueId);
         }
     }
+    public List<TacheTechnique> searchAdvanced(String query) {
+        return tacheTechniqueRepository.findByNomTacheTechniqueContainingOrDescriptionTacheTechniqueContaining(query, query);
+    }
 }

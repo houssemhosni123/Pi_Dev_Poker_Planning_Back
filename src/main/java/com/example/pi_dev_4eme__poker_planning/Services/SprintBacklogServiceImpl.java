@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,6 +129,28 @@ public class SprintBacklogServiceImpl implements ISprintBacklogServices {
     public List<SprintBacklog> getSprintBacklogsBySprintId(Long sprintId) {
 
         return sprintBacklogRepository.findBySprintIdSprint(sprintId);
+    }
+    @Override
+    public int getSprintProgression(Long sprintId) {
+        long totalSprintBacklogs = sprintBacklogRepository.countBySprintIdSprint(sprintId);
+        long sprintBacklogsTermines = sprintBacklogRepository.countBySprintIdSprintAndAndEstTermine(sprintId, true);
+
+        if (totalSprintBacklogs > 0) {
+            return (int) ((sprintBacklogsTermines * 100) / totalSprintBacklogs);
+        } else {
+            return 0;
+        }
+    }
+    public List<SprintBacklog> filterSprintBacklogsByDate(Date startDate, Date endDate) {
+        if (startDate != null && endDate != null) {
+            return sprintBacklogRepository.findByDateDebutAfterAndDateFinBefore(startDate, endDate);
+        } else if (startDate != null) {
+            return sprintBacklogRepository.findByDateDebutAfter(startDate);
+        } else if (endDate != null) {
+            return sprintBacklogRepository.findByDateFinBefore(endDate);
+        } else {
+            return sprintBacklogRepository.findAll();
+        }
     }
 
 }

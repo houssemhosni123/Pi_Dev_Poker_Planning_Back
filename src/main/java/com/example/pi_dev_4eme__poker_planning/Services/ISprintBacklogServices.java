@@ -16,6 +16,7 @@ public interface ISprintBacklogServices {
         void unassignUserStories(Long sprintBacklogId, List<Long> userStoryIds);
         void unassignSprintFromSprintBacklog(Long sprintBacklogId);
         List<SprintBacklog> getSprintBacklogsBySprintId(Long sprintId) ;
+        int getSprintProgression(Long sprintId);
 
 
         }

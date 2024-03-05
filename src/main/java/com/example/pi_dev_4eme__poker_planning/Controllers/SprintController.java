@@ -2,6 +2,7 @@ package com.example.pi_dev_4eme__poker_planning.Controllers;
 
 import com.example.pi_dev_4eme__poker_planning.Entities.Sprint;
 import com.example.pi_dev_4eme__poker_planning.Services.ISprintServices;
+import com.example.pi_dev_4eme__poker_planning.Services.SprintBacklogServiceImpl;
 import com.example.pi_dev_4eme__poker_planning.Services.SprintServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class SprintController {
     @Autowired
      SprintServiceImpl sprintService;
+    @Autowired
+    private SprintBacklogServiceImpl sprintBacklogService;
    /* @PostMapping("/add-sprint")
     @ResponseBody
     public void ajousprint(@RequestBody Sprint sprint) {
@@ -55,6 +58,12 @@ public class SprintController {
             sprintService.deleteSprintById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+    @GetMapping("/{sprintId}/progression")
+    public int getSprintProgression(@PathVariable Long sprintId) {
+        return sprintBacklogService.getSprintProgression(sprintId);
+    }
+
     }
 
 

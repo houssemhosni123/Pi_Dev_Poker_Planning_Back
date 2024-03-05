@@ -64,4 +64,9 @@ public class TacheTechniqueController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @GetMapping("/searchAdvanced")
+    public List<TacheTechnique> searchAdvanced(@RequestParam String query) {
+        return tacheTechniqueService.searchAdvanced(query);
+    }
 }

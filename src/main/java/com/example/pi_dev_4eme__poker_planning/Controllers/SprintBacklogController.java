@@ -4,10 +4,12 @@ package com.example.pi_dev_4eme__poker_planning.Controllers;
 import com.example.pi_dev_4eme__poker_planning.Entities.SprintBacklog;
 import com.example.pi_dev_4eme__poker_planning.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -99,6 +101,12 @@ import java.util.Map;
     @GetMapping("/sprintBacklog/{sprintId}")
     public List<SprintBacklog> getSprintBacklogsBySprintId(@PathVariable Long sprintId) {
         return sprintBacklogService.getSprintBacklogsBySprintId(sprintId);
+    }
+    @GetMapping("/filterByDate")
+    public List<SprintBacklog> filterSprintBacklogsByDate(
+            @RequestParam(name = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+            @RequestParam(name = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+        return sprintBacklogService.filterSprintBacklogsByDate(startDate, endDate);
     }
 
     }
