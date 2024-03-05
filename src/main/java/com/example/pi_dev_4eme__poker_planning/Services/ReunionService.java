@@ -1,19 +1,14 @@
 package com.example.pi_dev_4eme__poker_planning.Services;
 
-import com.example.pi_dev_4eme__poker_planning.Entities.Reclamation;
 import com.example.pi_dev_4eme__poker_planning.Entities.Reunion;
-import com.example.pi_dev_4eme__poker_planning.Entities.User;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReclamationRepositories;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReunionRepositories;
-import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepositories;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ReunionService implements IReunionRepositories {

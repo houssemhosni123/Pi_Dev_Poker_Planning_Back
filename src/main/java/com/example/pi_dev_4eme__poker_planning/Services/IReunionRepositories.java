@@ -1,11 +1,8 @@
 package com.example.pi_dev_4eme__poker_planning.Services;
 
-import com.example.pi_dev_4eme__poker_planning.Entities.Reclamation;
 import com.example.pi_dev_4eme__poker_planning.Entities.Reunion;
-import com.example.pi_dev_4eme__poker_planning.Entities.User;
 
 import java.util.List;
-import java.util.Set;
 
 public interface IReunionRepositories {
    // public Reunion addReunion (Reunion reunion, Long idUser);

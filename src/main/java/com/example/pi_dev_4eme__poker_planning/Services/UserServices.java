@@ -1,7 +1,5 @@
 package com.example.pi_dev_4eme__poker_planning.Services;
 
-import com.example.pi_dev_4eme__poker_planning.Entities.User;
-import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
