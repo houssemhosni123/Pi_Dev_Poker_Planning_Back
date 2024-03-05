@@ -17,22 +17,22 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 
-public class UserControllers {
-  @Autowired
+public class ReunionController {
+    @Autowired
     IUserRepositories userRepositories ;
-  @Autowired
-  IReunionRepositories iReunionRepostories ;
-  @Autowired
+    @Autowired
+    IReunionRepositories iReunionRepostories ;
+    @Autowired
     IReclamationRepositories reclamationRepositories ;
-  @Autowired
+    @Autowired
     ReunionService reunionService ;
-  @Autowired
+    @Autowired
     ReclamationService reclamationService ;
     @Autowired
-     ReclamationStatsService reclamationStatsService;
+    ReclamationStatsService reclamationStatsService;
     @Autowired
     UserServices userServices;
-    private static final Logger logger = LoggerFactory.getLogger(UserControllers.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReunionController.class);
 
     @PostMapping("/ajouteruser")
     public User addUser (@RequestBody  User user){
@@ -41,42 +41,38 @@ public class UserControllers {
     }
     //@PostMapping("/ajouterReunion/{id}")
     //public Reunion addReunion(@RequestBody Reunion reunion,@PathVariable  ("id") Long idUser){
-      //return  iReunionRepostories.addReunion(reunion,idUser);
+    //return  iReunionRepostories.addReunion(reunion,idUser);
     //}
     @PostMapping("/ajouter")
     public Reunion addReunion (@RequestBody Reunion reunion){
         return iReunionRepostories.addReunion(reunion);
     }
-//    @PutMapping("/ajouterReclamation/{idU}/{idR}")
-  //  public void  addReclamtion(@RequestBody Reclamation reclamation,@PathVariable("idU") Long idUser,@PathVariable("idR") Long idReunion) {
-
-   //reclamationRepositories.addReclamtion(reclamation,idUser,idReunion);
-    //}
 
 
-        @DeleteMapping("delete/{id}")
+
+    @DeleteMapping("delete/{id}")
     public void deleteReunion(@PathVariable Long id) {
-      iReunionRepostories.deleteReunion(id);
+        iReunionRepostories.deleteReunion(id);
     }
-        @GetMapping("/getAll")
-        public ResponseEntity<List<Reunion>> getAllReunions() {
-            List<Reunion>reunions = reunionService.getAllReunions()  ;
-            return new ResponseEntity<>(reunions,HttpStatus.OK);
-        }
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Reunion>> getAllReunions() {
+        List<Reunion>reunions = reunionService.getAllReunions()  ;
+        return new ResponseEntity<>(reunions,HttpStatus.OK);
+    }
     @GetMapping("get/{id}")
     public Reunion getReunionById(@PathVariable Long id) {
         return iReunionRepostories.getReunionById(id);
     }
-        @PutMapping("update/{id}")
-        public ResponseEntity<Reunion> updateReunion(@PathVariable("id") Long id, @RequestBody Reunion updatedReunion) {
-            Reunion reunion = iReunionRepostories.updateReunion(id, updatedReunion);
-            if (reunion != null) {
-                return new ResponseEntity<>(reunion, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
+    @PutMapping("update/{id}")
+    public ResponseEntity<Reunion> updateReunion(@PathVariable("id") Long id, @RequestBody Reunion updatedReunion) {
+        Reunion reunion = iReunionRepostories.updateReunion(id, updatedReunion);
+        if (reunion != null) {
+            return new ResponseEntity<>(reunion, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        @DeleteMapping("delreclamation/{id}")
+    }
+    @DeleteMapping("delreclamation/{id}")
     public  void deleteReclamation(@PathVariable Long id){
         reclamationRepositories.deleteReclamation(id);
     }
@@ -98,7 +94,7 @@ public class UserControllers {
     @GetMapping("affichage")
     public List<Reclamation> getAllReclamation() {
 
-return reclamationService.getAllReclamation();
+        return reclamationService.getAllReclamation();
 
 
     }
@@ -136,12 +132,12 @@ return reclamationService.getAllReclamation();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-@GetMapping("getRec/id")
-public Reclamation getReclamationById(@PathVariable Long id) {
-return reclamationService.getReclamationById(id);
+    @GetMapping("getRec/id")
+    public Reclamation getReclamationById(@PathVariable Long id) {
+        return reclamationService.getReclamationById(id);
 
 
-}}
+    }}
 
 
 
