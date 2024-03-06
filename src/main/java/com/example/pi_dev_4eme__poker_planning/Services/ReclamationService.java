@@ -4,16 +4,19 @@ import com.example.pi_dev_4eme__poker_planning.Entities.Reclamation;
 import com.example.pi_dev_4eme__poker_planning.Entities.Reunion;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReclamationRepositories;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReunionRepositories;
-import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.List;
+>>>>>>> 5c38ee898268e7c538ad58f91b372d2fee7ef373
 
 @Service
 public class ReclamationService  implements IReclamationRepositories{
