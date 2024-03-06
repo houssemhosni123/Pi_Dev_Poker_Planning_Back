@@ -1,4 +1,5 @@
 <h1>Feedback</h1>
+
 <div class="content-wrapper container-xxl p-0">
   <div class="content-body">
     <!-- users edit start -->
@@ -45,9 +46,7 @@
                       class="form-control"
                       #anonymeCheckbox
                       [(ngModel)]="anonymeChecked"
-                     
                       name="anonyme"
-                     
                     />
                   </div>
                 </div>
@@ -58,12 +57,10 @@
                   type="submit"
                   class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
                   rippleEffect
-                 
                 >
                   Save Changes
                 </button>
                 <button
-                  (click)="resetFormWithDefaultValues()"
                   class="btn btn-outline-secondary"
                   rippleEffect
                 >
@@ -72,6 +69,7 @@
               </div>
             </div>
           </form>
+         
         </div>
       </div>
     </section>

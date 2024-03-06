@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-import { Question } from 'app/Question'; // Assuming you have a Question interface or class
-import { QuestionService } from 'app/Services/question.service'; // Assuming you have a QuestionService
-
+import { Question } from 'app/Model/Question'; // Assuming you have a Question interface or class
+import { QuestionService } from 'app/Services/question.service'; 
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',

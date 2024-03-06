@@ -5,5 +5,7 @@ export interface Feedback {
     description: string;
     role: string;
     anonyme: Boolean;
+    sessionid: number; 
+    moyennesession : number;
   }
   

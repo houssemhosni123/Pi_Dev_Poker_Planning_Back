@@ -15,8 +15,9 @@ const routes: Routes = [
   {path:'question',component:QuestionsComponent},
 
   {path:'addQuestion',component:AjoutComponentComponent},
-  {path:'addSurvey',component:AddSurveyComponent},
   {path:'addFeed/:id',component:FeedbackfrontComponent},
+  {path:'addSurvey/:id',component:AddSurveyComponent},
+  
   
 
  

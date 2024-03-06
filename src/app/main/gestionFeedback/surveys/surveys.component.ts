@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-import { Survey } from 'app/Survey';
+import { Survey } from 'app/Model/Survey';
 import { SurveyService } from 'app/Services/survey.service';
 import { Subject } from 'rxjs';
 
@@ -39,7 +39,7 @@ export class SurveysComponent implements OnInit {
   constructor(private surveyService: SurveyService) { }
 
   ngOnInit(): void {
-    //this.loadSurveys();
+    this.loadSurveys();
   }
 
   loadSurveys() {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeedbackService } from 'app/Services/feedback.service';
-import { error } from 'console';
 
 @Component({
   selector: 'app-feedbackfront',
@@ -14,52 +13,42 @@ export class FeedbackfrontComponent implements OnInit {
   currentDate: Date = new Date();
   description: string = '';
   anonymeChecked: boolean = false;
-  surveyId:any;
-  
+  surveyId: any;
 
-  constructor(private feedBackService:FeedbackService,private _router:Router,private router:ActivatedRoute) { }
+  constructor(private feedBackService: FeedbackService, private _router: Router, private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    
+    this.surveyId = this.router.snapshot.params['id'];
   }
-  resetFormWithDefaultValues()
-  {
 
+  onRatingClicked(rating: number): void {
+    this.selectedRating = rating;
+    console.log('Rated:', rating);
   }
-  
 
-onRatingClicked(rating: number): void {
-  this.selectedRating = rating;
-  console.log('Rated:', rating);
-}
-submit(form: NgForm) {
-  this.surveyId=this.router.snapshot.params['id'];
+  submit(form: NgForm) {
+    if (!this.surveyId) {
+      console.error("Survey ID is undefined");
+      return;
+    }
 
-  
-  const requestBody = {
-    rating: this.selectedRating,
-    description: this.description,
-    anonyme: this.anonymeChecked
-  };
-  this.feedBackService.createFeedBack(requestBody,this.surveyId).subscribe(()=>{
-    console.log("inserted")
-    this.clear();
+    const requestBody = {
+      rating: this.selectedRating,
+      description: this.description,
+      anonyme: this.anonymeChecked
+    };
+    this.feedBackService.createFeedBack(requestBody, this.surveyId).subscribe(() => {
+      console.log("inserted");
+      this.clear();
+      this._router.navigate(['Feedback/addSurvey/:id']);
+    }, error => {
+      console.log(error);
+    });
+  }
 
-    this._router.navigate(['/Feedback']);
-
-  },error =>{
-    console.log(error);
-  })
-
-
-
-}
-clear()
-{
-  this.selectedRating=0;
-  this.anonymeChecked=false;
-  this.description=''
-}
-
-
+  clear() {
+    this.selectedRating = 0;
+    this.anonymeChecked = false;
+    this.description = '';
+  }
 }

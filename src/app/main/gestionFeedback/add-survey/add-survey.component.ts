@@ -42,7 +42,7 @@ export class AddSurveyComponent implements OnInit {
       this.surveyService.insertSurvey(modifiedRequestBody).subscribe((res:any)=>{
         console.log(res)
         this.resetForm();
-        this._router.navigate(['/Feedback/addFeed/',res]);
+        this._router.navigate(['/Feedback']);
      },error =>{
        console.log(error)
      })

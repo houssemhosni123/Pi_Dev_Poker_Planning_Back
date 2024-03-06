@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnMode,DatatableComponent } from '@swimlane/ngx-datatable';
-import { Feedback } from 'app/Feedback';
+import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
+import { Feedback } from 'app/Model/Feedback';
 import { FeedbackService } from 'app/Services/feedback.service';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-feed-backs',
@@ -11,9 +12,8 @@ import { Subject } from 'rxjs';
   styleUrls: ['./feed-backs.component.scss']
 })
 export class FeedBacksComponent implements OnInit {
-
-  feedbacks:any;
-  public data: any;
+  sessionavgfeedbacks: any[] = [];
+  feedbacks: any;
   public selectedOption = 10;
   public ColumnMode = ColumnMode;
   public selectStatus: any = [
@@ -39,21 +39,15 @@ export class FeedBacksComponent implements OnInit {
   public tempFilterData;
   public previousStatusFilter = '';
 
-  constructor(private feedbackService: FeedbackService,private router:Router) { }
+
+  constructor(private feedbackService: FeedbackService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.loadFeedBack();
-  }
+    this.calculateAverageEvaluation();
+}
 
-  loadFeedBack() {
-    this.feedbackService.getAllFeedbacks().subscribe((res: any) => {
-      this.rows=res;
-      this.feedbacks = res;
-      console.log(res);
-    }, error => {
-      console.log(error);
-    });
-  }
+  
 
   deleteFeedback(row: Feedback) {
     if (confirm('Are you sure you want to delete this feedback?')) {
@@ -66,24 +60,51 @@ export class FeedBacksComponent implements OnInit {
     }
   }
 
-
   filterUpdate() {
     if (this.searchValue) {
       const searchId = Number(this.searchValue);
-      this.rows = this.feedbacks.filter((f: any) => f.idfeedback === searchId);
-      console.log(this.rows)
+      const filteredFeedbacks = this.feedbacks.filter((f: any) => f.idfeedback === searchId);
+      this.rows = filteredFeedbacks.length > 0 ? filteredFeedbacks : [];
+      console.log(this.rows);
     } else {
       this.rows = [...this.feedbacks];
     }
   }
- // Define `toggleSurvey` method in your component class
-toggleSurvey(row: any) {
+  calculateAverageEvaluation() {
+    if (!this.feedbacks) {
+        return;
+    }
 
+    const sessionSumMap = new Map<number, { sum: number, count: number }>();
 
-//this.router.navigate(['/detail/',row.idfeedback]);
+    this.feedbacks.forEach((feedback: Feedback) => {
+        const sessionData = sessionSumMap.get(feedback.sessionid) || { sum: 0, count: 0 };
+        sessionData.sum += feedback.evaluation;
+        sessionData.count++;
+        sessionSumMap.set(feedback.sessionid, sessionData);
+    });
+
+    this.sessionavgfeedbacks = Array.from(sessionSumMap.entries()).map(([sessionid, { sum, count }]) => ({
+        sessionid: sessionid,
+        moyennesession: sum / count
+    }));
 }
 
+
+
+
   
+loadFeedBack() {
+  this.feedbackService.getAllFeedbacks().subscribe((res: any) => {
+      this.feedbacks = res; // Assuming res is an array of feedbacks
+      this.rows = [...this.feedbacks]; // Assuming rows is used to display the feedbacks in the template
+      this.calculateAverageEvaluation();
+  }, error => {
+      console.log(error);
+  });
+}
+
+
 
   filterByStatus($event) {
   }

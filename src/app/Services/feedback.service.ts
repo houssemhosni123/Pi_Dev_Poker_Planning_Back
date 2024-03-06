@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Feedback } from 'app/Feedback';
+import { Feedback } from 'app/Model/Feedback';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 
@@ -20,11 +20,12 @@ export class FeedbackService {
   public getFeedbackById(id: number): Observable<Feedback> {
     return this.http.get<Feedback>(`${this.apiServerUrl}/feedback/get/${id}`);
   }
-  public createFeedBack(feed:any,idSuvey:any)
-  
-  {
+public createFeedBack(feed: any, idSuvey: any): Observable<any> {
+  return this.http.post(`${this.apiServerUrl}/feedback/create`, feed);
+}
 
-    return this.http.post(`${this.apiServerUrl}/feedback/create/${idSuvey}`,feed)
+  public calculateAverageEvaluationBySessionId(sessionid: number): Observable<number> {
+    return this.http.get<number>(`${this.apiServerUrl}/feedback/calculateAverageEvaluation/${sessionid}`);
   }
   
 }
