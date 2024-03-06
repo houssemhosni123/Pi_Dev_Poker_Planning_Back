@@ -121,23 +121,30 @@ return reclamationService.getAllReclamation();
         return userServices.getAllUser();
 
     }
-<<<<<<< HEAD
     @GetMapping("/getNomUser")
     public List<String> getAllTitreUser(){
         return userRepositories.getAllTitreUser();
     }
 
 
-
-
-
-
-}
-=======
-
-
-
-
-
+    @PutMapping("updateRec/{id}")
+    public ResponseEntity<Reclamation> updateReclamation(@PathVariable("id") Long id, @RequestBody Reclamation updatedReclamtion) {
+        Reclamation reclamation = reclamationService.updateReclamation(id, updatedReclamtion);
+        if (reclamation != null) {
+            return new ResponseEntity<>(reclamation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
->>>>>>> fd67307c27fe31ffc313ded020827b3031d97bb2
+@GetMapping("getRec/id")
+public Reclamation getReclamationById(@PathVariable Long id) {
+return reclamationService.getReclamationById(id);
+
+
+}}
+
+
+
+
+
+

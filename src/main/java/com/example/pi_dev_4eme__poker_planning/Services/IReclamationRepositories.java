@@ -12,6 +12,7 @@ public interface IReclamationRepositories
     public Reclamation addReclamtion (Reclamation reclamation , String titre_Reunion );
     List<Reclamation> getAllReclamation();
     public Reclamation updateReclamation(Long id, Reclamation updatedReclamation);
+    public Reclamation getReclamationById(Long id) ;
 
 
 
