@@ -77,6 +77,12 @@ public class UserServices implements IUserServices{
         });
     }
 
+    @Override
+    public List<String> getAllTitreUser() {
+        return userRepositories.findAllNOM();
+
+    }
+
     public int countScrumMasters() {
         return userRepositories.countUsersByRole(Role.ScrumMaster);
     }

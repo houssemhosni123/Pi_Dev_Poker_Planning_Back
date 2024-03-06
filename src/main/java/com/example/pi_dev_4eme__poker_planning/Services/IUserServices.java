@@ -13,6 +13,8 @@ public interface IUserServices {
     User updateUserById(Long userId, User updatedUser);
     void activateUserById(Long userId);
     void deactivateUserById(Long userId);
+    public List<String> getAllTitreUser();
+
 
 
 }

@@ -19,4 +19,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
         @Query("SELECT COUNT(u) FROM User u WHERE u.Status = :status")
         int countUsersByStatus(@Param("status") StatusUser status);
+        @Query("SELECT u FROM User u WHERE u.Nom = :userName")
+        User findUsersByNomUser(String userName);
+        @Query("SELECT r.Nom FROM User r")
+        List<String> findAllNOM();
+        User findUserByIdUser(long idUser);
 }

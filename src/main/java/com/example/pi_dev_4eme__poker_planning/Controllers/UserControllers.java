@@ -73,6 +73,9 @@ public class UserControllers {
         Uservice.changePassword(request, connectedUser);
         return ResponseEntity.ok().build();
     }
-
+    @GetMapping("/getNomUser")
+    public List<String> getAllTitreUser(){
+        return Uservice.getAllTitreUser();
+    }
 
 }
