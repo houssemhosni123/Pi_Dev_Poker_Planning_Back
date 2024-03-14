@@ -9,9 +9,11 @@ import com.example.pi_dev_4eme__poker_planning.Repositories.IterationRepositorie
 import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -24,12 +26,29 @@ public class EstimationService implements IEstimationServices{
     UserRepository userRepositories;
     @Override
     public Estimation AddNewEstimation(Estimation estimation) {
+
+        // Save the estimation
         return estimationRepositories.save(estimation);
     }
+
     @Override
+    public Estimation AddEstimationAffectIteration( Estimation estimation , Principal connectedUser ) {
+        // Retrieve the authentication object from the Principal
+        Authentication authentication = (Authentication) connectedUser;
 
+        // Retrieve the authenticated user's details
+        User userPrincipal = (User) authentication.getPrincipal();
 
-    public Estimation AddEstimationAffectIteration( Estimation estimation ) {
+        // Retrieve the user ID from the user details
+        Long idUser = userPrincipal.getIdUser();
+
+        // Fetch the user details from the database using the user ID
+        User user = userRepositories.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Associate the user with the estimation
+        estimation.setUser(user);
+
         //  Iteration iteration = iterationRepository.findIterationByIdIteration(id);
         Iteration iteration = iterationRepository.findLatestIteration();
 

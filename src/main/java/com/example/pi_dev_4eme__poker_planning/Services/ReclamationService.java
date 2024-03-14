@@ -2,12 +2,15 @@ package com.example.pi_dev_4eme__poker_planning.Services;
 
 import com.example.pi_dev_4eme__poker_planning.Entities.Reclamation;
 import com.example.pi_dev_4eme__poker_planning.Entities.Reunion;
+import com.example.pi_dev_4eme__poker_planning.Entities.User;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReclamationRepositories;
 import com.example.pi_dev_4eme__poker_planning.Repositories.ReunionRepositories;
 import com.example.pi_dev_4eme__poker_planning.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -25,14 +28,7 @@ public class ReclamationService  implements IReclamationRepositories{
     UserRepository userRepositories ;
     @Autowired
     ReunionRepositories reunionRepositories ;
-    // @Override
-    //public void  addReclamtion(Reclamation reclamation, Long idUser, Long idReunion) {
-    //User user = userRepositories.findById(idUser).orElse(null);
-    //  Reunion reunion = reunionRepositories.findById(idReunion).orElse(null);
-    //reclamation.setUserReclamer(user);
-    //reclamation.setReunionReclamer(reunion);
-    //reclamationRepositories.save(reclamation);
-    //}
+
 
     private Set<String> badWords = new HashSet<>(Arrays.asList("badword1", "badword2", "badword3"));
     private boolean containsBadWords(String contenu) {
@@ -51,7 +47,22 @@ public class ReclamationService  implements IReclamationRepositories{
     }
 
     @Override
-    public Reclamation addReclamtion(Reclamation reclamation, String titre_Reunion) {
+    public Reclamation addReclamtion(Reclamation reclamation,  Principal connectedUser ,String titre_Reunion) {
+        // Retrieve the authentication object from the Principal
+        Authentication authentication = (Authentication) connectedUser;
+
+        // Retrieve the authenticated user's details
+        User userPrincipal = (User) authentication.getPrincipal();
+
+        // Retrieve the user ID from the user details
+        Long idUser = userPrincipal.getIdUser();
+
+        // Fetch the user details from the database using the user ID
+        User user = userRepositories.findById(idUser)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Associate the user with the estimation
+        reclamation.setUserReclamer(user);
         Reunion reunion = reunionRepositories.findReunionByTitre(titre_Reunion);
 
         if (reunion != null) {

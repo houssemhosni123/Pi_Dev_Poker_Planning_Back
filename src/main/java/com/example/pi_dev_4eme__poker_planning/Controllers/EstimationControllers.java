@@ -1,14 +1,12 @@
 package com.example.pi_dev_4eme__poker_planning.Controllers;
 
 import com.example.pi_dev_4eme__poker_planning.Entities.Estimation;
-import com.example.pi_dev_4eme__poker_planning.Entities.Iteration;
-import com.example.pi_dev_4eme__poker_planning.Entities.User;
 import com.example.pi_dev_4eme__poker_planning.Services.EstimationService;
-import com.example.pi_dev_4eme__poker_planning.Services.IterationServices;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,9 +23,9 @@ public class EstimationControllers {
     }
     @PostMapping("/AddEstimationWithIteration/")
     @Transactional
-    public void AddEstimationWithIteration(@RequestBody  Estimation estimation )
+    public void AddEstimationWithIteration(@RequestBody  Estimation estimation ,Principal connectedUser )
     {
-        estimationService.AddEstimationAffectIteration(estimation);
+        estimationService.AddEstimationAffectIteration(estimation,connectedUser);
     }
     @GetMapping("/GetEstimations/{id}")
     public List<Estimation> ShowEstimationsForOneIterations(@PathVariable("id") long id)

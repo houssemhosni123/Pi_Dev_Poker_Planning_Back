@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -78,9 +79,9 @@ public class ReunionController {
     }
 
     @PostMapping("/add/{titre_Reunion}")
-    public ResponseEntity<?> addReclamtion(@RequestBody Reclamation reclamation, @PathVariable("titre_Reunion") String titre_Reunion) {
+    public ResponseEntity<?> addReclamtion(@RequestBody Reclamation reclamation, @PathVariable("titre_Reunion") String titre_Reunion ,Principal connectedUser) {
         try {
-            Reclamation addedReclamation = reclamationService.addReclamtion(reclamation, titre_Reunion);
+            Reclamation addedReclamation = reclamationService.addReclamtion(reclamation,connectedUser ,titre_Reunion);
             return ResponseEntity.ok(addedReclamation);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
